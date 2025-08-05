@@ -124,4 +124,12 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
+}
+.streak-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  /*gap: calc(var(--spacing) * 5);*/
 }

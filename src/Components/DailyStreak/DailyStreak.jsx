@@ -1,16 +1,16 @@
 const DailyStreak = () => {
     return (
         <>
-            <div className="container mx-auto">
+            <div className="container mx-auto px-2 mt-[8px]">
                 <div className="grid gap-3">
                     <div className="grid-cols-1">
                         <div className="cardStreak">
-                            <div style={{ width: "20%" }}>
+                            <div className="w-1/5">
                                 <p>3</p>
                                 <p>Dias</p>
                             </div>
-                            <div style={{ width: "80%" }}>
-                                <ul>
+                            <div className="w-4/5">
+                                <ul className="streak-list">
                                     <li><p>D</p><span>check</span></li>
                                     <li><p>L</p><span>check</span></li>
                                     <li><p>M</p><span>check</span></li>
@@ -19,7 +19,6 @@ const DailyStreak = () => {
                                     <li><p>V</p><span>check</span></li>
                                     <li><p>S</p><span>check</span></li>
                                 </ul>
-                                <p>SEMANAS</p>
                             </div>
                         </div>
                     </div>
