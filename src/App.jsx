@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DailyStreak from './Components/DailyStreak/DailyStreak'
 import BookLog from './Components/BookLog/BookLog'
 import ConfigBook from './Components/ConfigBook/ConfigBook'
+import RegisterBook from './Components/ResgiterBook/RegisterBook'
 
 function App() {
 
@@ -9,9 +10,12 @@ function App() {
 
   return (
     <>
+    {/*
       <DailyStreak />
       <BookLog />
       <ConfigBook />
+      */}
+      <RegisterBook />
     </>
   )
 }
