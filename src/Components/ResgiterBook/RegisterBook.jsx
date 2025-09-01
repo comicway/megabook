@@ -1,25 +1,28 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useState } from 'react';
 
 const validate = (values) => {
     const errors = {};
-    if (!value.book) {
-        error.book = 'El nombre del libro es requerido';
+    if (!values.book) {
+        errors.book = 'El nombre del libro es requerido';
     }
-    if (!value.autor) {
-        error.autor = 'El nombre del autor es requerido';
-    } else if (!/[a-zA-Z\s]+$/i.test(value.autor)) {
-        error.autor = 'Solo se permiten letras';
+    if (!values.autor) {
+        errors.autor = 'El nombre del autor es requerido';
+    } else if (!/[a-zA-Z\s]+$/i.test(values.autor)) {
+        errors.autor = 'Solo se permiten letras';
     }
-    if (!value.ISBN) {
-        error.ISBN = 'El codigo ISBN es requerido';
-    } else if (!/^[0-9]+$/i.test(value.ISBN)) {
-        erro.ISBN = 'Solo se permiten numeros';
+    if (!values.ISBN) {
+        errors.ISBN = 'El codigo ISBN es requerido';
+    } else if (!/^[0-9]+$/i.test(values.ISBN)) {
+        errors.ISBN = 'Solo se permiten numeros';
     }
-    return error;
+    return errors;
 };
 
 const RegisterBook = () => {
+    const [submitMessage, setSubmitMessage] = useState('');
+    
     return (
         <>
             <div className="container mx-auto px-2 mt-[20px]">
@@ -56,8 +59,9 @@ const RegisterBook = () => {
                             <button
                                 type="submit"
                                 className=""
+                                disabled={isSubmitting}
                             >
-                                Enviar
+                                {isSubmitting ? 'Enviando...' : 'Enviar'}
                             </button>
                         </div>
                             </Form>
