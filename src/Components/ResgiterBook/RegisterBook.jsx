@@ -21,7 +21,7 @@ const validate = (values) => {
 };
 
 const RegisterBook = () => {
-    const [submitMessage, setSubmitMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
     
     return (
         <>
@@ -34,8 +34,24 @@ const RegisterBook = () => {
                                 ISBN: '' 
                             }}
                             validate={validate}
+                            onSubmit={(values, { setSubmitting, resetForm }) => {
+        setTimeout(() => {
+          try {
+            const jsonData = JSON.stringify(values);
+            localStorage.setItem('bookFormData', jsonData);
+            setSuccessMessage(`¡Gracias, ${values.autor}! Tu libro ha sido registrado.`);
+            resetForm();
+          } catch (error) {
+            console.error("No se pudo guardar en localStorage", error);
+            setSuccessMessage('Hubo un error al guardar los datos.');
+          }
+          setSubmitting(false);
+       setTimeout(() => setSuccessMessage(''), 5000);
+
+          }, 1000); // 1 segundo de demora
+        }}
                         >
-                        {({ issSubmitting}) => (
+                        {({ isSubmitting}) => (
                             <Form className='container mx-auto'>
                                 <div>
                                     <Field name="book" type="text" placeholder="Titulo del libro*"></Field>
@@ -61,13 +77,17 @@ const RegisterBook = () => {
                                 className=""
                                 disabled={isSubmitting}
                             >
-                                {isSubmitting ? 'Enviando...' : 'Enviar'}
+                               {isSubmitting ? 'Enviando...' : 'Guardar libro'}
                             </button>
                         </div>
                             </Form>
-
                         )} 
-                        </Formik>       
+                        </Formik>
+                        {successMessage && (
+        <div style={{ marginTop: '1rem', color: 'green', fontWeight: 'bold' }}>
+          {successMessage}
+        </div>
+      )}       
                     </div>
             </div>
         </>
