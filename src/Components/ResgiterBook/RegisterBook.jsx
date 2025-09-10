@@ -1,4 +1,3 @@
-import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useState } from 'react';
 
@@ -88,6 +87,11 @@ const RegisterBook = () => {
           {successMessage}
         </div>
       )}       
+                    </div>
+                    <div className="grid grid-cols-1">
+                        <div className="flex justify-center">
+                            <button className='button-outline'>Regresar</button>   
+                        </div>
                     </div>
             </div>
         </>
