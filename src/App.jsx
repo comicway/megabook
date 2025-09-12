@@ -3,6 +3,7 @@ import DailyStreak from './Components/DailyStreak/DailyStreak'
 import BookLog from './Components/BookLog/BookLog'
 import ConfigBook from './Components/ConfigBook/ConfigBook'
 import RegisterBook from './Components/ResgiterBook/RegisterBook'
+import ReadBook from './Components/ReadBook/ReadBook'
 
 function App() {
 
@@ -10,12 +11,12 @@ function App() {
 
   return (
     <>
-    {/*
-      <DailyStreak />
+    
+      {/*<DailyStreak />
       <BookLog />
       <ConfigBook />
-      */}
-      <RegisterBook />
+      <RegisterBook />*/}
+      <ReadBook />
     </>
   )
 }
