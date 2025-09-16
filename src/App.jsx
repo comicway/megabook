@@ -4,6 +4,7 @@ import BookLog from './Components/BookLog/BookLog'
 import ConfigBook from './Components/ConfigBook/ConfigBook'
 import RegisterBook from './Components/ResgiterBook/RegisterBook'
 import ReadBook from './Components/ReadBook/ReadBook'
+import Timer from './Components/Timer/Timer'
 
 function App() {
 
@@ -15,8 +16,9 @@ function App() {
       {/*<DailyStreak />
       <BookLog />
       <ConfigBook />
-      <RegisterBook />*/}
-      <ReadBook />
+      <RegisterBook />
+      <ReadBook />*/}
+      <Timer />
     </>
   )
 }

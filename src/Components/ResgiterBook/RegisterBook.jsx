@@ -53,19 +53,19 @@ const RegisterBook = () => {
                         {({ isSubmitting}) => (
                             <Form className='container mx-auto'>
                                 <div>
-                                    <Field name="book" type="text" placeholder="Titulo del libro*"></Field>
+                                    <Field className="border" name="book" type="text" placeholder="Titulo del libro*"></Field>
                                 </div>
                                 <div className="text-[#BF3A0A] flex justify-center">
                                     <ErrorMessage name="book"/>
                                 </div>
                                 <div>
-                                    <Field name="autor" type="text" placeholder="Nombre del autor*"></Field>
+                                    <Field className="border" name="autor" type="text" placeholder="Nombre del autor*"></Field>
                                 </div>
                                 <div className="text-[#BF3A0A] flex justify-center">
                                     <ErrorMessage name="autor"/>
                                 </div>
                                 <div>
-                                    <Field name="ISBN" type="text" placeholder="ISBN del libro*"></Field>
+                                    <Field className="border" name="ISBN" type="text" placeholder="ISBN del libro*"></Field>
                                 </div>
                                 <div className="text-[#BF3A0A] flex justify-center">
                                     <ErrorMessage name="ISBN"/>
