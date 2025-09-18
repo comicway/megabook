@@ -5,6 +5,7 @@ import ConfigBook from './Components/ConfigBook/ConfigBook'
 import RegisterBook from './Components/ResgiterBook/RegisterBook'
 import ReadBook from './Components/ReadBook/ReadBook'
 import Timer from './Components/Timer/Timer'
+import ConfigHabit from './Components/ConfigHabit/ConfigHabit'
 
 function App() {
 
@@ -17,8 +18,9 @@ function App() {
       <BookLog />
       <ConfigBook />
       <RegisterBook />
-      <ReadBook />*/}
-      <Timer />
+      <ReadBook />
+      <Timer />*/}
+      <ConfigHabit/>
     </>
   )
 }
