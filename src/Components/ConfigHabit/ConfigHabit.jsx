@@ -1,4 +1,5 @@
 import {Formik, Form, Field, ErrorMessage} from 'formik';
+import { useState } from 'react';
 
 const validate = (values) => {
     const errors = {};
@@ -11,6 +12,9 @@ const validate = (values) => {
 };
 
 const ConfigHabit = () => {
+
+    const [successMessage, setSuccessMessage] = useState('');
+
     return (
         <>
         <div className="container mx-auto px-2 mt-[20px]">
@@ -20,20 +24,27 @@ const ConfigHabit = () => {
             </div>
             <div className='grid gird-cols-1'>
                 <Formik
-                    initialValues={{
-                        habitpre:'',
-                    }}
+                    initialValues={{habitpre:'',}}
                     validate={validate}
-                    onSubmit={(values, { setSubmitting}) => {
+                    onSubmit={(values, { setSubmitting, resetForm }) => {
                         setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
+                            try {
+                                const jsonData = JSON.stringify(values);
+                                localStorage.setItem('habitData', jsonData);
+                                setSuccessMessage('Configurado pre habito');
+                                resetForm();
+                            } catch (error) {
+                                console.error("No se puede guardar en localStorage",error);
+                                setSuccessMessage("Hubo un error al guardar los datos");
+                            }
                             setSubmitting(false);
-                        }, 400);
+                            setTimeout(() => setSuccessMessage(''), 5000);
+                        }, 1000);
                     }}
                 >
                 {({ isSubmitting, isValid }) => (
                     <Form>
-                        <Field as="select" name="habitpro" id="habitpro">
+                        <Field as="select" name="habitpre" id="habitpre">
                             <option value="" disabled>Selecciona una opcion...</option>
                             <option value="antesdesayuno">Antes del desayuno</option>
                             <option value="despuescepillar">Despues de cepillarte</option>
@@ -41,12 +52,26 @@ const ConfigHabit = () => {
                             <option value="antesdesiesta">Antes de la siesta</option>
                         </Field>
                         <ErrorMessage name="habitpre" component="div"/>
-                        <button type="submit" disabled={isSubmitting || !isValid} >Guardar</button>
-
+                        <div className='flex justify-center'>
+                            <button type="submit" disabled={isSubmitting || !isValid} >
+                                {isSubmitting ? 'Enviando...' : 'Guardar'}
+                            </button>
+                        </div>
                     </Form>
+                    
                 )}
                 </Formik>
+                {successMessage && (
+                    <div style={{ marginTop: '1rem', color: 'green', fontWeight: 'bold' }}>
+                        {successMessage}
+                    </div>
+                )}
             </div>
+            <div className="grid grid-cols-1">
+                        <div className="flex justify-center">
+                            <button className='button-outline'>Regresar</button>   
+                        </div>
+                    </div>
         </div>
         </>
     );

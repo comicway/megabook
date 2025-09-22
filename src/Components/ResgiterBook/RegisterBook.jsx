@@ -83,10 +83,10 @@ const RegisterBook = () => {
                         )} 
                         </Formik>
                         {successMessage && (
-        <div style={{ marginTop: '1rem', color: 'green', fontWeight: 'bold' }}>
-          {successMessage}
-        </div>
-      )}       
+                            <div style={{ marginTop: '1rem', color: 'green', fontWeight: 'bold' }}>
+                                    {successMessage}
+                            </div>
+                        )}       
                     </div>
                     <div className="grid grid-cols-1">
                         <div className="flex justify-center">
