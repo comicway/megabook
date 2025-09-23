@@ -24,7 +24,12 @@ const ConfigHabit = () => {
             </div>
             <div className='grid gird-cols-1'>
                 <Formik
-                    initialValues={{habitpre:'',}}
+                    initialValues={{
+                        habitpre:'',
+                        hour:'',
+                        min:'',
+                        repeatdate:'',
+                    }}
                     validate={validate}
                     onSubmit={(values, { setSubmitting, resetForm }) => {
                         setTimeout(() => {
@@ -44,13 +49,40 @@ const ConfigHabit = () => {
                 >
                 {({ isSubmitting, isValid }) => (
                     <Form>
-                        <Field as="select" name="habitpre" id="habitpre">
-                            <option value="" disabled>Selecciona una opcion...</option>
-                            <option value="antesdesayuno">Antes del desayuno</option>
-                            <option value="despuescepillar">Despues de cepillarte</option>
-                            <option value="antesejercicio">Antes de hacer ejercicio</option>
-                            <option value="antesdesiesta">Antes de la siesta</option>
-                        </Field>
+                        <div className='grid grid-cols-1'>
+                            <Field as="select" name="habitpre" id="habitpre">
+                                <option value="" disabled>Selecciona una opcion...</option>
+                                <option value="antesdesayuno">Antes del desayuno</option>
+                                <option value="despuescepillar">Despues de cepillarte</option>
+                                <option value="antesejercicio">Antes de hacer ejercicio</option>
+                                <option value="antesdesiesta">Antes de la siesta</option>
+                            </Field>
+                        </div>
+                        <h2>Alarma</h2>
+                        <div className='grid grid-cols-2'>
+                            <Field as="select" name="hour" id="hour">
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                            </Field>
+                            <Field as="select" name="min" id="min">
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                            </Field>
+                        </div>
+                        <div className='grid grid-cols-1'>
+                            <Field as="select" name="repeatdate" id="repeatdate">
+                                <option value="unavez">Una vez</option>
+                                <option value="diariamente">Diariamente</option>
+                                <option value="lunesaviernes">Lunes a Viernes</option>
+                                <option value="lunes">Lunes</option>
+                                <option value="martes">Martes</option>
+                            </Field>
+                        </div>
+                        <div className='grid grid-cols-1'>
+                            <div className='flex justify-end'>
+                                <div className='buttonplus'>+</div>
+                            </div>
+                        </div>
                         <ErrorMessage name="habitpre" component="div"/>
                         <div className='flex justify-center'>
                             <button type="submit" disabled={isSubmitting || !isValid} >
@@ -58,7 +90,6 @@ const ConfigHabit = () => {
                             </button>
                         </div>
                     </Form>
-                    
                 )}
                 </Formik>
                 {successMessage && (
