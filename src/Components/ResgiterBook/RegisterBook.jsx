@@ -1,26 +1,38 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const validate = (values) => {
+
     const errors = {};
     if (!values.book) {
         errors.book = 'El nombre del libro es requerido';
-    }
-    if (!values.autor) {
-        errors.autor = 'El nombre del autor es requerido';
-    } else if (!/[a-zA-Z\s]+$/i.test(values.autor)) {
-        errors.autor = 'Solo se permiten letras';
-    }
-    if (!values.ISBN) {
-        errors.ISBN = 'El codigo ISBN es requerido';
-    } else if (!/^[0-9]+$/i.test(values.ISBN)) {
-        errors.ISBN = 'Solo se permiten numeros';
     }
     return errors;
 };
 
 const RegisterBook = () => {
+
     const [successMessage, setSuccessMessage] = useState('');
+
+    const [books, setBooks] = useState([]);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+
+        const fetchBookData = async () => {
+
+            const apiKey = 'AIzaSyBzpG3HDLwYjHSYiEPJxgKVTyOizFL33cY';
+            const query = "Isaac Asimov";
+            const encodedQuery = encodeURIComponent(query);
+
+            const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${apiKey}`;
+
+            try {}
+
+
+        };
+
+    }, []);
     
     return (
         <>
@@ -28,9 +40,7 @@ const RegisterBook = () => {
                     <div className="grid grid-cols-1">
                         <Formik
                             initialValues={{ 
-                                book: '', 
-                                autor: '', 
-                                ISBN: '' 
+                                book: ''
                             }}
                             validate={validate}
                             onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -57,18 +67,6 @@ const RegisterBook = () => {
                                 </div>
                                 <div className="text-[#BF3A0A] flex justify-center">
                                     <ErrorMessage name="book"/>
-                                </div>
-                                <div>
-                                    <Field className="border" name="autor" type="text" placeholder="Nombre del autor*"></Field>
-                                </div>
-                                <div className="text-[#BF3A0A] flex justify-center">
-                                    <ErrorMessage name="autor"/>
-                                </div>
-                                <div>
-                                    <Field className="border" name="ISBN" type="text" placeholder="ISBN del libro*"></Field>
-                                </div>
-                                <div className="text-[#BF3A0A] flex justify-center">
-                                    <ErrorMessage name="ISBN"/>
                                 </div>
                                 <div className="flex justify-center">
                             <button

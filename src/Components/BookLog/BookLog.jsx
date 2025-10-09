@@ -11,7 +11,7 @@ const BookLog = () => {
         const fetchBookData = async () => {
             
             const apiKey = 'AIzaSyBzpG3HDLwYjHSYiEPJxgKVTyOizFL33cY';
-            const query = "yo robot";
+            const query = "Isaac Asimov";
             const encodedQuery = encodeURIComponent(query);
 
             const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${apiKey}`;
