@@ -4,15 +4,15 @@ import { useState, useEffect } from 'react';
 const validate = (values) => {
 
     const errors = {};
-    if (!values.book) {
-        errors.book = 'El nombre del libro es requerido';
+    if (!values.title) {
+        errors.title = 'El titulo del libro es requerido';
     }
     return errors;
 };
 
 const RegisterBook = () => {
 
-    const [successMessage, setSuccessMessage] = useState('');
+    const [query, setQuery] = useState('');
 
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -20,10 +20,15 @@ const RegisterBook = () => {
 
     useEffect(() => {
 
-        const fetchBookData = async () => {
+        if (!query) {
+            setLoading(false);
+            return;
+        }
 
+        const fetchBookData = async () => {
+            setLoading(true);
             const apiKey = 'AIzaSyBzpG3HDLwYjHSYiEPJxgKVTyOizFL33cY';
-            const encodedQuery = encodeURIComponent(setBooks);
+            const encodedQuery = encodeURIComponent(query);
 
             const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${apiKey}`;
 
@@ -52,11 +57,7 @@ const RegisterBook = () => {
         };
         fetchBookData();
 
-    }, []);
-
-    if (loading) {
-        return <div>Cargando libro...</div>;
-    }
+    }, [query]);
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -72,51 +73,48 @@ const RegisterBook = () => {
                 <div className="grid grid-cols-1">
                     <Formik
                         initialValues={{
-                            book: ''
+                            title: ''
                         }}
                         validate={validate}
                         onSubmit={(values, { setSubmitting, resetForm }) => {
-                            setTimeout(() => {
-                                try {
-                                    const jsonData = JSON.stringify(values);
-                                    localStorage.setItem('bookFormData', jsonData);
-                                    setSuccessMessage(`¡Gracias, ${values.autor}! Tu libro ha sido registrado.`);
-                                    resetForm();
-                                } catch (error) {
-                                    console.error("No se pudo guardar en localStorage", error);
-                                    setSuccessMessage('Hubo un error al guardar los datos.');
-                                }
-                                setSubmitting(false);
-                                setTimeout(() => setSuccessMessage(''), 5000);
-
-                            }, 1000); // 1 segundo de demora
+                            setQuery(values.title);
+                            setSubmitting(false);
+                            resetForm();
                         }}
                     >
                         {({ isSubmitting }) => (
                             <Form className='container mx-auto'>
                                 <div>
-                                    <Field className="border" name="book" type="text" placeholder="Titulo del libro*"></Field>
+                                    <Field className="border" name="title" type="text" placeholder="Titulo del libro*"></Field>
                                 </div>
                                 <div className="text-[#BF3A0A] flex justify-center">
-                                    <ErrorMessage name="book" />
+                                    <ErrorMessage name="title" />
                                 </div>
                                 <div className="flex justify-center">
                                     <button
                                         type="submit"
                                         className=""
-                                        disabled={isSubmitting}
+                                        disabled={loading}
                                     >
-                                        {isSubmitting ? 'Enviando...' : 'Guardar libro'}
+                                        {loading ? 'Cargando libros...' : 'Buscar libro'}
                                     </button>
                                 </div>
                             </Form>
                         )}
                     </Formik>
-                    {successMessage && (
-                        <div style={{ marginTop: '1rem', color: 'green', fontWeight: 'bold' }}>
-                            {successMessage}
+                </div>
+                <div className="container mx-auto px-2 mt-[8px]">
+                    <div className="">
+                        <div className="grid gap-3 grid-cols-3 lg:grid-cols-4">
+                            {books.map((book) => (
+                                <div className="book-card" key={book.id}>
+                                    {book.volumeInfo.imageLinks?.thumbnail && (
+                                        <img src={book.volumeInfo.imageLinks.thumbnail} alt={`Portada de ${book.volumeInfo.title}`} />
+                                    )}
+                                </div>
+                            ))}
                         </div>
-                    )}
+                    </div>
                 </div>
                 <div className="grid grid-cols-1">
                     <div className="flex justify-center">
