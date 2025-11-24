@@ -46,29 +46,38 @@ const BookLog = () => {
             const apiKey = 'AIzaSyBzpG3HDLwYjHSYiEPJxgKVTyOizFL33cY';
             const encodedQuery = encodeURIComponent(query);
 
-            const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=${encodedQuery}&key=${apiKey}`;
+            const librosEncontrados = [];
 
             try {
-                
-                const response = await fetch(apiUrl);
 
-                if (!response.ok) {
+                for (const id of query) {
+
+                    const apiUrl = `https://www.googleapis.com/books/v1/volumes/${id}?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl)
+
+                    /* console.log("Mira el objeto response:", response);
+                    console.log("¿Es un array?:", Array.isArray(response)); */
+
+                    const data = await response.json();
+
+                    librosEncontrados.push(data);
+                }
+
+                setlocalBook(librosEncontrados);
+
+                /*if (!librosEncontrados.ok) {
                     throw new Error('Error al conectar con Google Books');
-                }
-                const data = await response.json();
+                }*/
 
-                if (!data.ok) {
-                    throw new Error('Probando');
-                }
-
-                if (data.items && data.items.length > 0) {
-                    setlocalBook(data.items);
+                if (librosEncontrados.length > 0) {
+                    setlocalBook(librosEncontrados);
                 } else {
-                    throw new Error('No se encontraron libros con este titulo.')
+                    throw new Error('No se encontraron libros con esos IDs.')
                 }
-                return data;
+                return librosEncontrados;
             } catch (err) {
-                setError(err.message);
+                setError("setError catch: " + err.message);
             } finally {
                 setLoading(false);
             }
@@ -79,7 +88,7 @@ const BookLog = () => {
         }, [query]);
 
         if (error) {
-            return <div>Error: {error}</div>;
+            return <div>Error - {error}</div>;
         }
 
     return (
@@ -99,10 +108,11 @@ const BookLog = () => {
                     <div className="grid gap-3 grid-cols-4 lg:grid-cols-8">
                         <ul>
                             {localBook.map((book, index) => (
-                                <li key={index}>{book}</li>
+                                <li key={book.id || index}>
+                                    {book.volumeInfo?.title || 'Título Desconocido'}
+                                </li>
                             ))}
                         </ul>
-        {localBook.length === 0 && <p>No se encontraron libros.</p>}
                     </div>
                 </div>
             </div>
