@@ -13,11 +13,25 @@ const validate = (value) => {
 
 const ReadBook = () => {
     const [successMessage, setSuccessMessage] = useState('');
+
+    const [ timeHabit, setTimeHabit ] = useState(() => {
+
+        try {
+            const timeGuardado = localStorage.getItem('timeFormData');
+            return timeGuardado ? JSON.parse(timeGuardado) : [];
+        } catch (error) {
+            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
+            return [];
+        }
+    });
+
+    console.log ("aqui la data del tiempo ", timeHabit);
+
     return (
         <>
             <div className="container mx-auto px-2 mt-[20px]">
                 <div className="grid grid-cols-1">
-                    <h1>25 min</h1>
+                    <h1>{timeHabit.time} min</h1>
                     <p>Cuantos minutos quieres leer?</p>
                 </div>
                 <div className="grid grid-cols-1">

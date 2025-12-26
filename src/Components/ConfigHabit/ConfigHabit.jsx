@@ -15,6 +15,19 @@ const ConfigHabit = () => {
 
     const [successMessage, setSuccessMessage] = useState('');
 
+    const [ formuHabit, setFormuHabit ] = useState(() => {
+
+        try {
+            const habitGuardado = localStorage.getItem('habitData');
+            return habitGuardado ? JSON.parse(habitGuardado) : [];
+        } catch (error) {
+            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
+            return [];
+        }
+    });
+    
+    console.log("Lo que esta en el LocalHabit:", formuHabit);
+
     return (
         <>
         <div className="container mx-auto px-2 mt-[20px]">
@@ -26,8 +39,7 @@ const ConfigHabit = () => {
                 <Formik
                     initialValues={{
                         habitpre:'',
-                        hour:'',
-                        min:'',
+                        time:'',
                         repeatdate:'',
                     }}
                     validate={validate}
@@ -60,14 +72,7 @@ const ConfigHabit = () => {
                         </div>
                         <h2>Alarma</h2>
                         <div className='grid grid-cols-2'>
-                            <Field as="select" name="hour" id="hour">
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                            </Field>
-                            <Field as="select" name="min" id="min">
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                            </Field>
+                            <Field type="time" name="time" id="time"></Field>
                         </div>
                         <div className='grid grid-cols-1'>
                             <Field as="select" name="repeatdate" id="repeatdate">
@@ -78,11 +83,11 @@ const ConfigHabit = () => {
                                 <option value="martes">Martes</option>
                             </Field>
                         </div>
-                        <div className='grid grid-cols-1'>
+                        {/*<div className='grid grid-cols-1'>
                             <div className='flex justify-end'>
                                 <div className='buttonplus'>+</div>
                             </div>
-                        </div>
+                        </div>*/}
                         <ErrorMessage name="habitpre" component="div"/>
                         <div className='flex justify-center'>
                             <button type="submit" disabled={isSubmitting || !isValid} >

@@ -105,14 +105,13 @@ const BookLog = () => {
             </div>
             <div className="container mx-auto px-2 mt-[8px]">
                 <div className="">
-                    <div className="grid gap-3 grid-cols-4 lg:grid-cols-8">
-                        <ul>
+                    <div className="grid gap-3 grid-cols-4 lg:grid-cols-6">
                             {localBook.map((book, index) => (
-                                <li key={book.id || index}>
+                                <div className="book-card" key={book.id || index}>
+                                     <img src={book.volumeInfo?.imageLinks.thumbnail || 'No hay imagen'} alt={`Portada de ${book.volumeInfo?.title || 'Título Desconocido'}`} />
                                     {book.volumeInfo?.title || 'Título Desconocido'}
-                                </li>
+                                </div>
                             ))}
-                        </ul>
                     </div>
                 </div>
             </div>

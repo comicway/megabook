@@ -19,7 +19,7 @@ function App() {
       <ConfigBook />
       {/*<RegisterBook />
       <ReadBook />
-      <Timer />
+       <Timer />
       <ConfigHabit/>*/}
     </>
   )
