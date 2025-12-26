@@ -13,14 +13,13 @@ function App() {
 
   return (
     <>
-    
-      <DailyStreak />
+      {/*<DailyStreak />
       <BookLog />
       <ConfigBook />
-      {/*<RegisterBook />
+      <RegisterBook />
       <ReadBook />
-       <Timer />
       <ConfigHabit/>*/}
+       <Timer />
     </>
   )
 }

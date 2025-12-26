@@ -2,6 +2,9 @@ import { useState } from "react";
 
 const Timer = () => {
 
+    const [countdownStarted, setCountdownStarted] = useState(false);
+    const [timeRemaining, setTimeRemaining] = useState(0);
+
     const [ timeHabit, setTimeHabit ] = useState(() => {
     
             try {
@@ -23,6 +26,28 @@ const Timer = () => {
 
         return `${minutosConCero}:00`;
     };
+
+    useEffect(() => {
+        // Solo iniciamos si el contador es mayor a 0
+        if (countdownStarted && timeRemaining > 0) {
+
+            const countdownInterval = setInterval(() => {
+
+                // PISTA CLAVE:
+                // En lugar de calcular fechas, usamos la función de actualización
+                // de React para acceder al valor anterior (prevTime)
+                setTimeRemaining((prevTime) => {
+                    const nuevoTiempo = prevTime - 1000;
+
+                    // Si llegamos a 0 o menos, devolvemos 0
+                    return nuevoTiempo > 0 ? nuevoTiempo : 0;
+                });
+
+            }, 1000);
+
+            return () => clearInterval(countdownInterval);
+        }
+    }, [countdownStarted, timeRemaining]); // Dependencias
 
     return (
         <>
