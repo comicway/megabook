@@ -88,11 +88,16 @@ const Timer = () => {
         } else if (segundosTotales == 0 && minutosTotales == 0) {
 
             setCountdownStarted(false);
+            setTimerComplete(1++);
 
         }
         return () => { if (intervalo) clearInterval(intervalo); };
 
     }, [countdownStarted, segundosTotales, minutosTotales]);
+
+    const [timerComplete, setTimerComplete] = useState(0);
+
+    console.log ("El timer se ha completado ", timerComplete);
 
     return (
         <>
