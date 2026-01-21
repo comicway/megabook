@@ -1,3 +1,7 @@
+import { useContext, useState, useEffect } from "react";
+
+const { timerComplete } = useContext(TimerContext);
+
 const DailyStreak = () => {
     return (
         <>
@@ -6,7 +10,7 @@ const DailyStreak = () => {
                     <div className="grid-cols-1">
                         <div className="cardStreak">
                             <div className="w-1/5">
-                                <p>3</p>
+                                <p>{timerComplete}</p>
                                 <p>Dias</p>
                             </div>
                             <div className="w-4/5">
