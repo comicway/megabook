@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TimerContext } from './Components/Context/TimerContext'
+import { TimerProvider } from './Components/Context/TimerProvider'
 import DailyStreak from './Components/DailyStreak/DailyStreak'
 import BookLog from './Components/BookLog/BookLog'
 import ConfigBook from './Components/ConfigBook/ConfigBook'
@@ -14,15 +14,16 @@ function App() {
 
   return (
     <>
-    <TimerContext>
-      {/*<DailyStreak />
-      <BookLog />
+    <TimerProvider>
+      <DailyStreak />
+      <Timer />
+      {/*<BookLog />
       <ConfigBook />
       <RegisterBook />
       <ReadBook />
-      <ConfigHabit/>*/}
-      <Timer />
-    </TimerContext> 
+      <ConfigHabit/>
+      */}
+    </TimerProvider> 
     </>
   )
 }

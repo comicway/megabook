@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { useContext, useState, useEffect } from "react";
-import { TimerContext } from '../Context/TimerContext';
+import { useState, useEffect, useContext } from "react";
+import { TimerContext } from '../Context/TimerProvider';
 
 const Timer = () => {
 

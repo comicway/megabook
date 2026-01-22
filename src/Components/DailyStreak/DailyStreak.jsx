@@ -1,8 +1,11 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
+import { TimerContext } from '../Context/TimerProvider';
 
-const { timerComplete } = useContext(TimerContext);
 
 const DailyStreak = () => {
+
+    const { timerComplete } = useContext(TimerContext);
+
     return (
         <>
             <div className="container mx-auto px-2 mt-[8px]">
