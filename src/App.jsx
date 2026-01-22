@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { UserContext } from './Components/Context/proviContext'
+import { TimerProvider } from './Components/Context/TimerProvider'
 import DailyStreak from './Components/DailyStreak/DailyStreak'
 import BookLog from './Components/BookLog/BookLog'
 import ConfigBook from './Components/ConfigBook/ConfigBook'
@@ -14,15 +14,16 @@ function App() {
 
   return (
     <>
-    <proviContext.Provider value={timer}>
-      {/*<DailyStreak />
-      <BookLog />
+    <TimerProvider>
+      <DailyStreak />
+      <Timer />
+      {/*<BookLog />
       <ConfigBook />
       <RegisterBook />
       <ReadBook />
-      <ConfigHabit/>*/}
-      <Timer />
-    </proviContext.Provider > 
+      <ConfigHabit/>
+      */}
+    </TimerProvider> 
     </>
   )
 }

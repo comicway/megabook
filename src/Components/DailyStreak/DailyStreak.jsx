@@ -1,4 +1,11 @@
+import { useContext } from "react";
+import { TimerContext } from '../Context/TimerProvider';
+
+
 const DailyStreak = () => {
+
+    const { timerComplete } = useContext(TimerContext);
+
     return (
         <>
             <div className="container mx-auto px-2 mt-[8px]">
@@ -6,7 +13,7 @@ const DailyStreak = () => {
                     <div className="grid-cols-1">
                         <div className="cardStreak">
                             <div className="w-1/5">
-                                <p>3</p>
+                                <p>{timerComplete}</p>
                                 <p>Dias</p>
                             </div>
                             <div className="w-4/5">

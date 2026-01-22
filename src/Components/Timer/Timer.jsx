@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { TimerContext } from '../Context/TimerProvider';
 
 const Timer = () => {
 
@@ -49,6 +50,7 @@ const Timer = () => {
         setTimeRemaining(segundosTotales);*/
 
         setCountdownStarted(true);
+ 
     };
 
     console.log("Segundos Totales: ", segundosTotales);
@@ -60,6 +62,8 @@ const Timer = () => {
         setMinutosTotales(0);
         /* setTimeRemaining(0); */
     };
+
+    const { timerComplete, setTimerComplete } = useContext(TimerContext);
 
     useEffect(() => {
 
@@ -81,23 +85,27 @@ const Timer = () => {
 
                 } else {
                     setSegundosTotales(59);
-                }
+                };
 
             }, 1000);
 
         } else if (segundosTotales == 0 && minutosTotales == 0) {
 
             setCountdownStarted(false);
-            setTimerComplete(1++);
 
-        }
+        };
+
+        if ( countdownStarted == false && minutosTotales == 0 ) {
+
+            setTimerComplete((prev) => prev + 1);
+
+        };
+ 
         return () => { if (intervalo) clearInterval(intervalo); };
 
     }, [countdownStarted, segundosTotales, minutosTotales]);
 
-    const [timerComplete, setTimerComplete] = useState(0);
-
-    console.log ("El timer se ha completado ", timerComplete);
+    console.log ("El timer se ha completado ",timerComplete, " veces");
 
     return (
         <>
