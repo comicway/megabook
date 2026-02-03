@@ -4,31 +4,31 @@ import { TimerContext } from '../Context/TimerProvider';
 const Timer = () => {
 
     const [countdownStarted, setCountdownStarted] = useState(false);
-    /* const [timeRemaining, setTimeRemaining] = useState(0); */
+    // const [timeRemaining, setTimeRemaining] = useState(0);
 
     const [segundosTotales, setSegundosTotales] = useState(59);
 
 
-    const [ timeHabit, setTimeHabit ] = useState(() => {
-    
-            try {
-                const timeGuardado = localStorage.getItem('timeFormData');
-                return timeGuardado ? JSON.parse(timeGuardado) : {};
-            } catch (error) {
-                console.error("¡Error al parsear! El JSON estaba corrupto:", error);
-                return {};
-            }
+    const [timeHabit, setTimeHabit] = useState(() => {
+
+        try {
+            const timeGuardado = localStorage.getItem('timeFormData');
+            return timeGuardado ? JSON.parse(timeGuardado) : {};
+        } catch (error) {
+            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
+            return {};
+        }
     });
 
     const [minutosTotales, setMinutosTotales] = useState(() => {
-        
+
         const tiempoCrudo = timeHabit?.time || 0;
-        
+
         return (Number(tiempoCrudo));
 
     });
 
-        console.log ("aqui la data del tiempo ", timeHabit);
+    console.log("aqui la data del tiempo ", timeHabit);
 
     /* const formatearMinutos = (minutos) => {
        
@@ -40,7 +40,7 @@ const Timer = () => {
     }; */
 
     const handleStarted = () => {
-   
+
         /*const tiempoCrudo = timeHabit?.time || 0;
         
         setSegundosTotales(Number(tiempoCrudo) * 60);
@@ -50,7 +50,7 @@ const Timer = () => {
         setTimeRemaining(segundosTotales);*/
 
         setCountdownStarted(true);
- 
+
     };
 
     console.log("Segundos Totales: ", segundosTotales);
@@ -60,7 +60,7 @@ const Timer = () => {
         setCountdownStarted(false);
         setSegundosTotales(0);
         setMinutosTotales(0);
-        /* setTimeRemaining(0); */
+        // setTimeRemaining(0);
     };
 
     const { timerComplete, setTimerComplete } = useContext(TimerContext);
@@ -95,17 +95,17 @@ const Timer = () => {
 
         };
 
-        if ( countdownStarted == false && minutosTotales == 0 ) {
+        if (countdownStarted == false && minutosTotales == 0) {
 
             setTimerComplete((prev) => prev + 1);
 
         };
- 
+
         return () => { if (intervalo) clearInterval(intervalo); };
 
     }, [countdownStarted, segundosTotales, minutosTotales]);
 
-    console.log ("El timer se ha completado ",timerComplete, " veces");
+    console.log("El timer se ha completado ", timerComplete, " veces");
 
     return (
         <>
