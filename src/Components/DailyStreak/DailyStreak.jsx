@@ -4,7 +4,7 @@ import { TimerContext } from '../Context/TimerProvider';
 
 const DailyStreak = () => {
 
-    const { timerComplete } = useContext(TimerContext);
+    const { timerComplete, domingo, lunes, martes, miercoles, jueves, viernes, sabado } = useContext(TimerContext);
 
     return (
         <>
@@ -18,13 +18,13 @@ const DailyStreak = () => {
                             </div>
                             <div className="w-4/5">
                                 <ul className="streak-list">
-                                    <li><p>D</p><span>check</span></li>
-                                    <li><p>L</p><span>check</span></li>
-                                    <li><p>M</p><span>check</span></li>
-                                    <li><p>M</p><span>check</span></li>
-                                    <li><p>J</p><span>check</span></li>
-                                    <li><p>V</p><span>check</span></li>
-                                    <li><p>S</p><span>check</span></li>
+                                    <li><span>{domingo ? "check" : ""}</span><p>D</p></li>
+                                    <li><span>{lunes ? "check" : ""}</span><p>L</p></li>
+                                    <li><span>{martes ? "check" : ""}</span><p>M</p></li>
+                                    <li><span>{miercoles ? "check" : ""}</span><p>M</p></li>
+                                    <li><span>{jueves ? "check" : ""}</span><p>J</p></li>
+                                    <li><span>{viernes ? "check" : ""}</span><p>V</p></li>
+                                    <li><span>{sabado ? "check" : ""}</span><p>S</p></li>
                                 </ul>
                             </div>
                         </div>

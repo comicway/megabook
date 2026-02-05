@@ -14,16 +14,16 @@ function App() {
 
   return (
     <>
-    <TimerProvider>
-      <DailyStreak />
-      <Timer />
-      {/*<BookLog />
-      <ConfigBook />
-      <RegisterBook />
+      <TimerProvider>
+        <DailyStreak />
+        <BookLog />
+        <ConfigBook />
+        {/*<RegisterBook />
       <ReadBook />
       <ConfigHabit/>
       */}
-    </TimerProvider> 
+        <Timer />
+      </TimerProvider>
     </>
   )
 }
