@@ -28,7 +28,6 @@ export const TimerProvider = ({ children }) => {
     useEffect(() => {
         if (timerComplete > 0) {
             setDays(prev => ({ ...prev, [currentDayName]: true }));
-            // localStorage.setItem('timerComplete', timerComplete);
         }
     }, [timerComplete]);
 

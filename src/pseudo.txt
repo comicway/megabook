@@ -47,3 +47,5 @@ switch (todayIs) {
             break;
     }
     
+COMO GUARDAR EL DIA CHECK EN EL localStorage?
+
