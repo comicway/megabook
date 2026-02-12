@@ -4,7 +4,7 @@ import { TimerContext } from '../Context/TimerProvider';
 
 const DailyStreak = () => {
 
-    const { timerComplete, days } = useContext(TimerContext);
+    const { days, timerComplete } = useContext(TimerContext);
 
     return (
         <>
