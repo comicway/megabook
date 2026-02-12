@@ -63,12 +63,6 @@ const Timer = () => {
         // setTimeRemaining(0);
     };
 
-    const localTimer = () => {
-        localStorage.setItem('timerKey', JSON.stringify(timerComplete));
-        const valorEnNumero = Number(localStorage.getItem('timerKey'));
-        console.log("Informacion del localStorage key timerKey: ", valorEnNumero);
-    }
-
     const { timerComplete, setTimerComplete } = useContext(TimerContext);
 
     useEffect(() => {
@@ -112,8 +106,6 @@ const Timer = () => {
     }, [countdownStarted, segundosTotales, minutosTotales]);
 
     console.log("El timer se ha completado ", timerComplete, " veces");
-
-    localTimer();
 
     return (
         <>
