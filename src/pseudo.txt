@@ -4,12 +4,13 @@
 
 1. Obtener el dia de hoy
 2. Obtener el dia de ayer
-3. Comparar los dias
-4. Si el dia de hoy es mayor al dia de ayer, incrementar el contador del dia de hoy
-5. Si el dia de hoy es menor al dia de ayer, reiniciar el contador del dia de hoy
-6. Si el dia de hoy es igual al dia de ayer, no hacer nada
-7. Guardar el dia de hoy en el localStorage
-8. Mostrar el dia de hoy en el DailyStreak
+
+IF AYER ES TRUE
+    SUMA 1 AL DIA DE HOY
+ELSE
+    REINICIA EL CONTADOR
+
+PERO LOS DOMINGOS LOS DIAS SE VUELVEN FALSE, ASI QUE SE PERDERIA LA RACHA
 
 
 ##### La logica para registar el dia de hoy y monstrar en el DailyStreak
