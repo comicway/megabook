@@ -4,7 +4,7 @@ import { TimerContext } from '../Context/TimerProvider';
 
 const DailyStreak = () => {
 
-    const { days, timerComplete } = useContext(TimerContext);
+    const { days, timerComplete, totalStreak } = useContext(TimerContext);
 
     return (
         <>
@@ -14,6 +14,10 @@ const DailyStreak = () => {
                         <div className="cardStreak">
                             <div className="w-1/5">
                                 <p>{timerComplete}</p>
+                                <p>Timers</p>
+                            </div>
+                            <div className="w-1/5">
+                                <p>{totalStreak}</p>
                                 <p>Dias</p>
                             </div>
                             <div className="w-4/5">

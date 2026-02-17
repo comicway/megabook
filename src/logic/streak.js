@@ -1,26 +1,16 @@
-export const calculateStreak = (days) => {
+export const calculateStreak = (days, today = new Date().getDay()) => {
 
     const values = Object.values(days);
 
-    const keys = Object.keys(days);
+    let streak = 0;
 
-    // const todayIs = keys.indexOf(new Date().getDay());
-
-    let racha = 0;
-
-    if (values[todayIs - 1] === true) {
-        racha++;
-    } else {
-        racha = 0;
+    for (let i = today; i >= 0; i--) {
+        if (values[i] === true) {
+            streak++;
+        } else if (i < today) {
+            break;
+        }
     }
 
-    /*for (let i = values[todayIs - 1]; i < values.length; i++) {
-        if (values[i] === true) {
-            racha++;
-        } else if (values[i] === false) {
-            racha = 0;
-        }
-    }  */
-
-    return racha;
+    return streak;
 }
