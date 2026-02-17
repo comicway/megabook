@@ -1,15 +1,15 @@
 import { calculateStreak } from './streak';
 
-test('deberia devolver 1 si el dia anterior es true', () => {
+test('dias de racha en true', () => {
 
     const days = {
-        0: true,
-        1: true,
-        2: false,
-        3: true,
-        4: false,
-        5: true,
-        6: true
+        0: true, // Domingo
+        1: true, // Lunes
+        2: false, // Martes
+        3: true, // Miercoles
+        4: false, // Jueves
+        5: false, // Viernes
+        6: false // Sabado
     };
-    expect(calculateStreak(days)).toBe(1);
+    expect(calculateStreak(days)).toBe(2);
 });
