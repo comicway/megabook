@@ -16,9 +16,9 @@ function App() {
     <>
       <TimerProvider>
         <DailyStreak />
-        <BookLog />
+        {/*<BookLog />
         <ConfigBook />
-        {/*<RegisterBook />
+        <RegisterBook />
       <ReadBook />
       <ConfigHabit/>
       */}
