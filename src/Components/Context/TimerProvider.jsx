@@ -1,155 +1,70 @@
-/*
-Con la lógica actual, la racha se basa en los 7 días que ves en pantalla. Eso significa que el domingo (cuando el objeto days se limpie), la racha volverá a ser 0 (o 1 si completas el domingo) porque la función ya no "ve" el sábado pasado.
-
-Mañana trabar en cómo hacer que ese número totalStreak "recuerde" que venías de una racha de la semana pasada para que siga sumando (8, 9, 10...)
-
-Pero primero repasar toda la logica del TimerProvider
-
-*/
-
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useEffect } from 'react';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { dayNames, getWeekNumber, getYesterdayInfo } from '../../logic/dateUtils';
 import { calculateStreak } from '../../logic/streak';
 
 export const TimerContext = createContext();
 
 export const TimerProvider = ({ children }) => {
-
-    // timerComplete en 0 si no hay nada en el localStorage
-
-    const [timerComplete, setTimerComplete] = useState(() => {
-        try {
-            const numGuardado = Number(localStorage.getItem('timerKey'));
-            return numGuardado ? numGuardado : 0;
-        } catch (error) {
-            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
-            return 0;
-        }
-
-    });
-
-    const [lastTimerCount, setLastTimerCount] = useState(() => {
-        try {
-            const numGuardado = Number(localStorage.getItem('lastTimerKey'));
-            return numGuardado ? numGuardado : 0;
-        } catch (error) {
-            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
-            return 0;
-        }
-
-    });
-
-    // Los dias de semana como false en el localStorage
-
-    const [days, setDays] = useState(() => {
-        try {
-            const numGuardado = JSON.parse(localStorage.getItem('daysFalses'));
-            return numGuardado ? numGuardado : {
-                sunday: false,
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false
-            };
-        } catch (error) {
-            console.error("¡Error al parsear! El JSON estaba corrupto:", error);
-            return 0;
-        }
-
-    });
-
-    // dayNames los dias de la semana en un array
-
-    const dayNames = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
-
-    const todayIs = new Date().getDay();
-    console.log("El dia de hoy es: ", todayIs);
-
-    // currentDayName es el dia de hoy
-
+    const today = new Date();
+    const currentWeek = getWeekNumber(today);
+    const todayIs = today.getDay();
     const currentDayName = dayNames[todayIs];
 
-    // totalStreak tomando del localStorage
+    // Estados con Persistencia Automática
+    const [timerComplete, setTimerComplete] = useLocalStorage('timerKey', 0);
+    const [lastTimerCount, setLastTimerCount] = useLocalStorage('lastTimerKey', 0);
+    const [totalStreak, setTotalStreak] = useLocalStorage('totalStreak', 0);
+    const [lastWeek, setLastWeek] = useLocalStorage('LastWeek', 0);
+    const [wasSaturdaySuccessful, setWasSaturdaySuccessful] = useLocalStorage('wasSaturdaySuccessful', false);
 
-    const [totalStreak, setTotalStreak] = useState(() => {
-        return Number(localStorage.getItem('totalStreak')) || 0;
+    // Estado de los días (Cargado desde localStorage)
+    const [days, setDays] = useLocalStorage('daysFalses', {
+        sunday: false, monday: false, tuesday: false, wednesday: false,
+        thursday: false, friday: false, saturday: false
     });
 
-    const lastWeek = Number(localStorage.getItem('WeekNumber'));
-
-    console.log("La semana pasada fue: ", lastWeek);
-
-    // getWeekNumber para obtener el numero de la semana actual
-
-    const getWeekNumber = (date) => {
-        const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-        const pastDaysOfYear = (date - firstDayOfYear) / 86400000;
-        return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
-    };
-
-    // currentWeek es la semana actual
-
-    const currentWeek = getWeekNumber(new Date());
-
-    console.log("La semana actual es: ", currentWeek);
-
-    // useEffect para cuando empieza una nueva semana
-
+    // Sincronización de cambio de semana
     useEffect(() => {
-
-        // const isNewWeek = todayIs === 0 && (days.monday || days.tuesday || days.wednesday || days.thursday || days.friday || days.saturday);
-
-        localStorage.setItem('WeekNumber', JSON.stringify(currentWeek));
-
-        if (lastWeek !== currentWeek) {
-
+        if (lastWeek !== 0 && lastWeek !== currentWeek) {
+            console.log("¡Semana Nueva detectada! Reseteando tablero...");
+            setWasSaturdaySuccessful(days.saturday);
             setDays({
-                sunday: false,
-                monday: false,
-                tuesday: false,
-                wednesday: false,
-                thursday: false,
-                friday: false,
-                saturday: false
+                sunday: false, monday: false, tuesday: false, wednesday: false,
+                thursday: false, friday: false, saturday: false
             });
-
             setLastTimerCount(timerComplete);
         }
+        setLastWeek(currentWeek);
+    }, [currentWeek, lastWeek]);
 
-    }, []);
-
-    // useEffect para cuando se completa el timer
-
+    // Procesa el fin de un timer y actualiza racha
     useEffect(() => {
-
-        if (timerComplete > 0 && days[currentDayName] == false && lastTimerCount < timerComplete) {
-
+        if (timerComplete > 0 && !days[currentDayName] && lastTimerCount < timerComplete) {
             const updatedDays = { ...days, [currentDayName]: true };
-
             setDays(updatedDays);
-
             setLastTimerCount(timerComplete);
 
-            const newStreak = calculateStreak(updatedDays, todayIs);
+            // Lógica de Racha Infinita
+            const { name, isAcrossWeek } = getYesterdayInfo(todayIs);
+            const yesterdayWasSuccessful = isAcrossWeek ? wasSaturdaySuccessful : days[name];
 
-            setTotalStreak(newStreak);
+            setTotalStreak(yesterdayWasSuccessful ? totalStreak + 1 : 1);
         }
+    }, [timerComplete]);
 
-        localStorage.setItem('timerKey', JSON.stringify(timerComplete));
-
-        localStorage.setItem('daysFalses', JSON.stringify(days));
-
-        localStorage.setItem('totalStreak', totalStreak.toString());
-
-        localStorage.setItem('lastTimerKey', JSON.stringify(lastTimerCount));
-
-    }, [timerComplete, days, totalStreak, lastTimerCount]);
-
-    console.log("Informacion del localStorage key timerKey: ", timerComplete);
+    // Calcular racha en vivo (para la UI)
+    const { name, isAcrossWeek } = getYesterdayInfo(todayIs);
+    const yesterdayWasSuccessful = isAcrossWeek ? wasSaturdaySuccessful : days[name];
+    const liveStreak = (days[currentDayName] || yesterdayWasSuccessful) ? totalStreak : 0;
 
     return (
-        <TimerContext.Provider value={{ timerComplete, setTimerComplete, days, setDays, totalStreak, setTotalStreak }}>
+        <TimerContext.Provider value={{
+            timerComplete, setTimerComplete,
+            days, setDays,
+            totalStreak, setTotalStreak,
+            liveStreak
+        }}>
             {children}
         </TimerContext.Provider>
     );
