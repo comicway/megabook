@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { TimerProvider } from './Components/Context/TimerProvider'
-import ConfigBook from './Components/ConfigBook/ConfigBook'
 import RegisterBook from './Components/ResgiterBook/RegisterBook'
 import ReadBook from './Components/ReadBook/ReadBook'
 import Timer from './Components/Timer/Timer'
@@ -12,13 +11,15 @@ function App() {
   return (
     <>
       <TimerProvider>
-        <HomePage />
-        {/*<ConfigBook />
-        <RegisterBook />
-      <ReadBook />
-      <ConfigHabit/>
-      */}
-        <Timer />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/readbook' element={<ReadBook />} />
+            <Route path='/confighabit' element={<ConfigHabit />} />
+            <Route path='/registerbook' element={<RegisterBook />} />
+            <Route path='/timer' element={<Timer />} />
+          </Routes>
+        </BrowserRouter>
       </TimerProvider>
     </>
   )
