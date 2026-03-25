@@ -9,6 +9,12 @@ const DailyStreak = () => {
     return (
         <>
             <div className="container mx-auto px-2 mt-[8px]">
+                <div className="grid grid-cols-1">
+                    <div className="flex justify-start items-center mt-[6px]">
+                        <img src="src/assets/icons/fire.svg" alt="" />
+                        <h1 className="text-h1 text-white-a font-nsbold">Tu racha</h1>
+                    </div>
+                </div>
                 <div className="grid gap-3">
                     <div className="grid-cols-1">
                         <div className="cardStreak">
