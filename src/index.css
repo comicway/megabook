@@ -10,16 +10,26 @@
   --color-background-b: #525B65;
   --color-white-a: #E9E9E9;
   --color-white-b: #F5F5F5;
+  --color-black-a: #2F2F30;
 
   /* ===== FONTS ===== */
 
   --font-nsdisplayblack: 'Noto Sans Display Black', sans-serif;
   --font-nsbold: 'Noto Sans Bold', sans-serif;
+  --font-nsmedium: 'Noto Sans Medium', sans-serif;
 
   /* ===== TEXT ===== */
 
   --text-titlepage: 22px;
   --text-h1: 16px;
+  --text-daily: 92px;
+  --text-day: 22px;
+  --text-dailysub: 22px;
+
+  /* ===== SHADOW EFECT ===== */
+
+  --shadow-general: -3px 3px 3.8px 0px rgba(0, 0, 0, 0.1);
+  --shadow-toolbar: 0px -3px 2.7px 1px rgba(0, 0, 0, 0.03);
 }
 
 @layer base {
@@ -41,6 +51,13 @@
   font-family: 'Noto Sans Bold';
   src: url('./assets/fonts/NotoSans-Bold.ttf') format('truetype');
   font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Medium';
+  src: url('./assets/fonts/NotoSans-Medium.ttf') format('truetype');
+  font-weight: 500;
   font-style: normal;
 }
 
@@ -86,7 +103,7 @@
   height: 100%;
 }
 
-/* ===== ESTILO BOTONES ===== */
+/* ===== ESTILO BOTONES =====
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -124,4 +141,4 @@ button:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+}  */
