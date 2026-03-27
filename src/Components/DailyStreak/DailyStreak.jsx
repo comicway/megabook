@@ -15,28 +15,51 @@ const DailyStreak = () => {
                         <h1 className="text-h1 text-white-a font-nsbold">Tu racha</h1>
                     </div>
                 </div>
-                <div className="grid gap-3">
+                <div className="grid pt-3">
+                    <div className="grid-cols-2 flex items-center gap-4">
+                        <div className=" bg-primary p-4 rounded-md w-full text-center flex flex-col justify-center shadow-general">
+                            <span className="text-white-a font-nsbold font-black text-daily leading-[0.8]">{timerComplete}</span>
+                            <span className="text-white-a font-nsmedium font-medium text-dailysub leading-none">Timers</span>
+                        </div>
+                        <div className=" bg-primary p-4 rounded-md w-full text-center flex flex-col justify-center shadow-general">
+                            <span className="text-white-a font-nsbold font-black text-daily leading-[0.8]">{liveStreak}</span>
+                            <span className="text-white-a font-nsmedium font-medium text-dailysub leading-none">Días</span>
+                        </div>
+                    </div>
+                </div>
+                <div className="grid pt-3">
                     <div className="grid-cols-1">
-                        <div className="cardStreak">
-                            <div className="w-1/5">
-                                <p>{timerComplete}</p>
-                                <p>Timers</p>
-                            </div>
-                            <div className="w-1/5">
-                                <p>{liveStreak}</p>
-                                <p>Dias</p>
-                            </div>
-                            <div className="w-4/5">
-                                <ul className="streak-list">
-                                    <li><span>{days.sunday ? "check" : ""}</span><p>D</p></li>
-                                    <li><span>{days.monday ? "check" : ""}</span><p>L</p></li>
-                                    <li><span>{days.tuesday ? "check" : ""}</span><p>M</p></li>
-                                    <li><span>{days.wednesday ? "check" : ""}</span><p>M</p></li>
-                                    <li><span>{days.thursday ? "check" : ""}</span><p>J</p></li>
-                                    <li><span>{days.friday ? "check" : ""}</span><p>V</p></li>
-                                    <li><span>{days.saturday ? "check" : ""}</span><p>S</p></li>
-                                </ul>
-                            </div>
+                        <div className="relative flex justify-between items-center w-full px-4 py-8 bg-primary shadow-general rounded-md">
+                            {/* Línea conectora de fondo */}
+                            <div className="absolute top-[35%] left-9 right-9 h-0.5 bg-secundary opacity-50" />
+                            {[
+                                { label: 'L', key: 'monday' },
+                                { label: 'M', key: 'tuesday' },
+                                { label: 'M', key: 'wednesday' },
+                                { label: 'J', key: 'thursday' },
+                                { label: 'V', key: 'friday' },
+                                { label: 'S', key: 'saturday' },
+                                { label: 'D', key: 'sunday' }
+                            ].map((day) => {
+                                const isCompleted = days[day.key];
+                                return (
+                                    <div key={day.key} className="relative z-10 flex flex-col items-center gap-4">
+                                        {/* Círculo de estado */}
+                                        <div className={`
+                                                flex h-[22px] w-[22px] items-center justify-center rounded-full border-2 border-secundary transition-all duration-300
+                                                ${isCompleted ? 'bg-secundary shadow-general' : 'bg-primary'}
+                                            `}>
+                                            {isCompleted && (
+                                                <span className="text-white-a text-lg font-bold">✓</span>
+                                            )}
+                                        </div>
+                                        {/* Etiqueta del día */}
+                                        <span className="font-nsmedium font-medium text-white-a text-day uppercase leading-[0.8]">
+                                            {day.label}
+                                        </span>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>

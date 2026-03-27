@@ -6,6 +6,7 @@ import ReadBook from './Components/ReadBook/ReadBook'
 import Timer from './Components/Timer/Timer'
 import ConfigHabit from './Components/ConfigHabit/ConfigHabit'
 import HomePage from './Components/Home/Home'
+import ToolBar from './Components/ToolBar/ToolBar'
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
           <Route path='/registerbook' element={<RegisterBook />} />
           <Route path='/timer' element={<Timer />} />
         </Routes>
+        <ToolBar />
       </TimerProvider>
     </>
   )
