@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { useState, useEffect, use } from 'react';
+import { useState, useEffect } from 'react';
 
 /* Validacion del buscador de libros*/
 
@@ -118,17 +118,17 @@ const RegisterBook = () => {
                         }}
                     >
                         {({ isSubmitting }) => (
-                            <Form className='container mx-auto'>
+                            <Form>
                                 <div>
-                                    <Field className="border" name="title" type="text" placeholder="Titulo del libro*"></Field>
+                                    <Field className='w-full border border-white-a rounded h-[56px] bg-transparent px-[15px] text-h1 font-nsbold font-bold text-white-a outline-none' name="title" type="text" placeholder="Título del libro*"></Field>
                                 </div>
-                                <div className="text-[#BF3A0A] flex justify-center">
+                                <div className="text-secundary flex justify-center font-nsitalic">
                                     <ErrorMessage name="title" />
                                 </div>
                                 <div className="flex justify-center">
                                     <button
                                         type="submit"
-                                        className=""
+                                        className="w-full mt-3 bg-secundary h-14 text-black-a font-nsbold font-bold rounded-full text-btn shadow-general"
                                         disabled={loading}
                                     >
                                         {loading ? 'Cargando libros...' : 'Buscar libro'}

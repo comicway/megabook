@@ -17,11 +17,14 @@
   --font-nsdisplayblack: 'Noto Sans Display Black', sans-serif;
   --font-nsbold: 'Noto Sans Bold', sans-serif;
   --font-nsmedium: 'Noto Sans Medium', sans-serif;
+  --font-nsextrabold: 'Noto ExtraBold', sans-serif;
+  --font-nsitalic: 'Noto Sans Italic', sans-serif;
 
   /* ===== TEXT ===== */
 
   --text-titlepage: 22px;
   --text-h1: 16px;
+  --text-btn: 20px;
   --text-daily: 92px;
   --text-day: 22px;
   --text-dailysub: 22px;
@@ -57,6 +60,20 @@
 @font-face {
   font-family: 'Noto Sans Medium';
   src: url('./assets/fonts/NotoSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto ExtraBold';
+  src: url('./assets/fonts/NotoSans-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Italic';
+  src: url('./assets/fonts/NotoSans-Italic.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
