@@ -8,7 +8,7 @@ const HomePage = () => {
         <>
             <TimerProvider>
                 <DailyStreak />
-                {/*<BookLog />*/}
+                <BookLog />
                 <ConfigBook />
             </TimerProvider>
         </>

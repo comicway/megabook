@@ -34,7 +34,7 @@ function App() {
   }, [location]);
 
   return (
-    <>
+    <div className='pb-24'>
       <TimerProvider>
         <div className="container mx-auto text-center px-2 mt-[20px]">
           <span className='font-nsdisplayblack text-titlepage text-white-a'>{h1Router}</span>
@@ -48,7 +48,7 @@ function App() {
         </Routes>
         <ToolBar />
       </TimerProvider>
-    </>
+    </div>
   )
 }
 

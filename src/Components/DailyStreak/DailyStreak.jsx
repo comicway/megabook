@@ -12,7 +12,7 @@ const DailyStreak = () => {
                 <div className="grid grid-cols-1">
                     <div className="flex justify-start items-center mt-[6px]">
                         <img src="src/assets/icons/fire.svg" alt="" />
-                        <h1 className="text-h1 text-white-a font-nsbold">Tu racha</h1>
+                        <h1 className="text-h1 text-white-a font-nsbold font-bold">Tu racha</h1>
                     </div>
                 </div>
                 <div className="grid pt-3">
@@ -29,7 +29,7 @@ const DailyStreak = () => {
                 </div>
                 <div className="grid pt-3">
                     <div className="grid-cols-1">
-                        <div className="relative flex justify-between items-center w-full px-4 py-8 bg-primary shadow-general rounded-md">
+                        <div className="relative flex justify-between items-center w-full px-4 py-8 bg-primary shadow-general rounded-3xl">
                             {/* Línea conectora de fondo */}
                             <div className="absolute top-[35%] left-9 right-9 h-0.5 bg-secundary opacity-50" />
                             {[

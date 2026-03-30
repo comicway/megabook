@@ -95,24 +95,25 @@ const BookLog = () => {
     return (
         <>
             <div className="container mx-auto px-2 mt-[8px]">
-                <div className="flex justify-between items-center">
-                    <div>
-                        <p>Libros</p>
-                    </div>
-                    <div>
-                        <Link to="/registerbook">
-                            <button>Cargar</button>
-                        </Link>
+                <div className="grid grid-cols-1">
+                    <div className="flex justify-start items-center mt-[6px]">
+                        <img src="src/assets/icons/book.svg" alt="" />
+                        <h1 className="text-h1 text-white-a font-nsbold font-bold">Tu biblioteca</h1>
                     </div>
                 </div>
             </div>
             <div className="container mx-auto px-2 mt-[8px]">
                 <div className="">
-                    <div className="grid gap-3 grid-cols-4 lg:grid-cols-6">
+                    <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
                         {localBook.map((book, index) => (
-                            <div className="book-card" key={book.id || index}>
-                                <img src={book.volumeInfo?.imageLinks.thumbnail || 'No hay imagen'} alt={`Portada de ${book.volumeInfo?.title || 'Título Desconocido'}`} />
-                                {book.volumeInfo?.title || 'Título Desconocido'}
+                            <div key={book.id || index}>
+                                <img className="book-card shadow-general rounded-md pt-3" src={book.volumeInfo?.imageLinks.thumbnail || 'No hay imagen'} alt={`Portada de ${book.volumeInfo?.title || 'Título Desconocido'}`} />
+                                <div className="text-white-a font-nsextrabold font-extrabold text-sm pt-0.5">
+                                    {book.volumeInfo?.title || 'Título Desconocido'}
+                                </div>
+                                <div className="text-white-a font-nsitalic text-xs pt-0.5">
+                                    {book.volumeInfo?.authors?.join(', ') || 'Autor Desconocido'}
+                                </div>
                             </div>
                         ))}
                     </div>
