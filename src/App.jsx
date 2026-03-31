@@ -19,10 +19,10 @@ function App() {
         setH1Router('Megabook');
         break;
       case '/readbook':
-        setH1Router('¡A leer!');
+        setH1Router('Nueva Sesión');
         break;
       case '/confighabit':
-        setH1Router('Configuración de hábitos');
+        setH1Router('Configurar hábito');
         break;
       case '/registerbook':
         setH1Router('Registro de libros');
