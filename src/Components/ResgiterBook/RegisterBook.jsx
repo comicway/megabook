@@ -19,6 +19,8 @@ const RegisterBook = () => {
     const [books, setBooks] = useState([]); /* Los datos del libro */
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [statusMessage, setStatusMessage] = useState('');
+
 
     const STORAGE_KEY = 'miConfiguracionRadio';
 
@@ -49,13 +51,19 @@ const RegisterBook = () => {
     }, [inputValue]);
 
     const handleSave = (e) => {
+
         e.preventDefault();
-        if (nuevoInput.trim() === '') return;
 
-        setNuevoInput(prevInput => [...prevInput, nuevoInput]);
+        if (inputValue.length > 0) {
+            setStatusMessage('Agregado correctamente');
 
+        } else {
+            setStatusMessage('Por favor, selecciona un libro');
+        }
 
+        setTimeout(() => setStatusMessage(''), 3000);
     };
+
 
     useEffect(() => {
 
@@ -119,8 +127,20 @@ const RegisterBook = () => {
                     >
                         {({ isSubmitting }) => (
                             <Form>
-                                <div>
-                                    <Field className='w-full border border-white-a rounded h-[56px] bg-transparent px-[15px] text-h1 font-nsbold font-bold text-white-a outline-none' name="title" type="text" placeholder="Título del libro*"></Field>
+                                <div className="relative w-full">
+                                    <Field className="w-full border border-white-a rounded h-[56px] bg-transparent px-[15px] text-h1 font-nsbold font-bold text-white-a outline-none" name="title" type="text" placeholder="Título del libro*"></Field>
+                                    <button
+                                        type="submit"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer p-1"
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 -960 960 960"
+                                            className="h-6 w-6 fill-white-a hover:fill-secundary transition-colors"
+                                        >
+                                            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                                 <div className="text-secundary flex justify-center font-nsitalic">
                                     <ErrorMessage name="title" />
@@ -128,9 +148,16 @@ const RegisterBook = () => {
                                 <div className="flex justify-center">
                                     <button
                                         type="submit"
-                                        className="w-full mt-3 bg-secundary h-14 text-black-a font-nsbold font-bold rounded-full text-btn shadow-general"
+                                        className="w-full mt-3 bg-secundary h-14 text-black-a font-nsbold font-bold rounded-full text-btn shadow-general flex justify-center items-center gap-2"
                                         disabled={loading}
                                     >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 -960 960 960"
+                                            className="h-[25px] w-[25px] fill-black-a"
+                                        >
+                                            <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                                        </svg>
                                         {loading ? 'Cargando libros...' : 'Buscar libro'}
                                     </button>
                                 </div>
@@ -138,9 +165,9 @@ const RegisterBook = () => {
                         )}
                     </Formik>
                 </div>
-                <div className="container mx-auto px-2 mt-[8px]">
+                <div className="container mx-auto px-2 mt-[16px]">
                     <div className="">
-                        <div className="grid gap-3 grid-cols-4 lg:grid-cols-8">
+                        <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
                             {books.map((book) => (
                                 <div className="book-card" key={book.id}>
                                     <input
@@ -150,10 +177,14 @@ const RegisterBook = () => {
                                         value={book.id}
                                         checked={inputValue.includes(book.id)}
                                         onChange={handleChange}
+                                        className="peer hidden"
                                     />
-                                    <label htmlFor={book.id}>
+                                    <label
+                                        htmlFor={book.id}
+                                        className="block cursor-pointer border-[6px] border-transparent rounded-md peer-checked:border-secundary transition-all"
+                                    >
                                         {book.volumeInfo.imageLinks?.thumbnail && (
-                                            <img src={book.volumeInfo.imageLinks.thumbnail} alt={`Portada de ${book.volumeInfo.title}`} />
+                                            <img className="w-full h-full object-cover rounded-sm" src={book.volumeInfo.imageLinks.thumbnail} alt={`Portada de ${book.volumeInfo.title}`} />
                                         )}
                                     </label>
                                 </div>
@@ -161,10 +192,15 @@ const RegisterBook = () => {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-1">
+                <div className="grid grid-cols-1 mt-2">
                     <div className="flex justify-center">
-                        <button onClick={handleSave} className='button-outline'>Agregar</button>
+                        <button onClick={handleSave} className='w-full h-14 text-secundary font-nsbold font-bold rounded-full text-btn border border-secundary'>Agregar</button>
                     </div>
+                    {statusMessage && (
+                        <div className="text-secundary flex justify-center font-nsitalic mt-2">
+                            {statusMessage}
+                        </div>
+                    )}
                     <div>
                         {/* Mostrar selección actual */}
                         <p style={{ marginTop: '10px' }}>
