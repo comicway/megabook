@@ -109,15 +109,34 @@ const Timer = () => {
 
     return (
         <>
-            <div className="container mx-auto px-2 mt-[20px]">
+            <div className="container mx-auto px-2 mt-5">
                 <div className="grid grid-cols-1 text-center">
                     {/*<p className="text-[54px]">{formatearMinutos(timeRemaining)}</p>*/}
                     {/*<p className="text-[54px]">{timeRemaining}</p>*/}
-                    <p className="text-[54px]">{minutosTotales}:{segundosTotales}</p>
+                    <div className="bg-primary rounded-md w-full mx-auto shadow-general ">
+                        <p className="font-nsmedium font-medium text-white-a text-daily">{minutosTotales}:{segundosTotales}</p>
+                    </div>
                 </div>
-                <div className="grid grid-cols-2">
-                    <button onClick={handleStop} className="w-[98%]">STOP</button>
-                    <button onClick={handleStarted} className="w-[98%]">PLAY</button>
+                <div className="grid grid-cols-2 gap-4 mt-7">
+                    <button onClick={handleStop} className="w-[98%] border border-secundary h-14 text-white-a font-nsbold font-bold rounded-full text-btn flex justify-center items-center gap-2">STOP</button>
+                    <button onClick={handleStarted} className="w-[98%] bg-secundary h-14 text-black-a font-nsbold font-bold rounded-full text-btn shadow-general flex justify-center items-center gap-2">PLAY</button>
+                </div>
+                <div className="grid grid-cols-1 mt-7">
+                    <div className="border border-white-a rounded-md w-full flex p-3 items-center">
+                        <div className="w-[10%]">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 -960 960 960"
+                                className="h-6 w-6 fill-white-a"
+                            >
+                                <path d="M300-80q-58 0-99-41t-41-99v-520q0-58 41-99t99-41h500v600q-25 0-42.5 17.5T740-220q0 25 17.5 42.5T800-160v80H300Zm-60-267q14-7 29-10t31-3h20v-440h-20q-25 0-42.5 17.5T240-740v393Zm160-13h320v-440H400v440Zm-160 13v-453 453Zm60 187h373q-6-14-9.5-28.5T660-220q0-16 3-31t10-29H300q-26 0-43 17.5T240-220q0 26 17 43t43 17Z" />
+                            </svg>
+                        </div>
+                        <div className="w-[90%]">
+                            <h1 className="text-white-a font-nsitalic font-bold text-h1">Dato curioso:</h1>
+                            <p className="text-white-a font-nsitalic text-h1">Leer solo 15 minutos al día puede ayudarte a terminar hasta 20 libros al año.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </>

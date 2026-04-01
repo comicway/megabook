@@ -28,7 +28,7 @@ function App() {
         setH1Router('Registro de libros');
         break;
       case '/timer':
-        setH1Router('Temporizador');
+        setH1Router('Sesión Activa');
         break;
     }
   }, [location]);
